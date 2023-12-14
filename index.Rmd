@@ -1,7 +1,7 @@
 ---
 title: "Gov 50 Final Project"
 author: "Sarah Bradley"
-description: "Investigating the relationshiop between ethnolinguistic fractionalism and political violence"
+description: "Investigating the relationship between ethnolinguistic fractionalism and constitutional change"
 output:
   distill::distill_article:
     self_contained: false
@@ -11,6 +11,100 @@ output:
 
 ## Introduction
 
-In this project I will explore the relationship between ethnolinguistic fractionalism and political violence. I have chosen to explore ethnolinguistic fractionalism as an independent variable instead of ethnic separatism (although I suspect there would be an even stronger positive correlation there) as it is a less researched area of study. The dependent variable I will be researching is levels of political violence, lookign in particular at levels of rioting. I hypothesise that there will be a positive correlation between the two. The null hypothesis would be that there is no relationship.
+In this project I will explore the relationship between ethnolinguistic fractionalism and constitutional change. I have chosen to explore ethnolinguistic fractionalism as an independent variable instead of ethnic separatism (although I suspect there would be an even stronger positive correlation there) as it is a less studied area of research. The dependent variable I will be researching is major constitutional change, specifically, the number of basic alterations to a state's constitution. I hypothesize that there will be a positive correlation between the two. The null hypothesis would be that there is no relationship.
+
+## The Data
+
+I am using a correlational research data 
+
+```{r}
+file_path <- "~/Downloads/violence.csv"
+
+data <- read.csv(file_path)
 
 
+#linear regression
+
+model <- lm(constchg60 ~ elf60, data = data)
+
+summary(model)
+
+#tibble
+
+library(tibble)
+library(broom)
+
+model <- lm(constchg60 ~ elf60, data = data)
+
+regression_results <- tidy(model)
+
+print(regression_results)
+
+
+```
+```{r}
+#investigating confoudning variables
+
+
+model <- lm(constchg60 ~ govtcris60 + revols60 + elf60, data = data)
+
+summary(model)
+
+
+```
+
+```{r}
+
+# Load ggplot2 package
+library(ggplot2)
+
+# Remove rows with N/A values for constchg60
+data_no_na_constchg60 <- data[complete.cases(data$constchg60), ]
+
+# Create a bar chart with custom labels
+ggplot(data_no_na_constchg60, aes(x = factor(constchg60), fill = factor(elf60 >= 0.5))) +
+  geom_bar(position = "dodge", alpha = 0.7) +
+  labs(title = "Ethnolinguistic Fractionalism and Constitutional Change",
+       x = "Constitutional Change",
+       y = "Number of Countries") +
+  scale_fill_manual(values = c("TRUE" = "blue", "FALSE" = "red"), 
+                    name = "Ethnolinguistic Fractionalization > 0.5?") +
+  scale_x_discrete(labels = c("0" = "No Change", "1" = "Change")) +
+  theme_minimal()
+
+print(geom_bar)
+```
+```{r}
+# Load ggplot2 package
+library(ggplot2)
+
+# Remove rows with N/A values for constchg60
+data_no_na_constchg60 <- data[complete.cases(data$constchg60), ]
+
+# Create a box plot
+ggplot(data_no_na_constchg60, aes(x = factor(constchg60), y = elf60)) +
+  geom_boxplot(fill = "lightblue", alpha = 0.7) +
+  labs(title = "Ethnolinguistic Fractionalism and Constitutional Change",
+       x = "Constitutional Change",
+       y = "Ethnolinguistic Fractionalization") +
+  scale_x_discrete(labels = c("0" = "No Change", "1" = "Change")) +
+  theme_minimal()
+
+print(ggplot)
+
+```
+
+
+
+```{r}
+## logistical regression
+
+logistic_model <- glm(constchg60 ~ elf60, data = data, family = "binomial")
+
+summary(logistic_model)
+
+```
+
+## Results
+
+## Conclusion

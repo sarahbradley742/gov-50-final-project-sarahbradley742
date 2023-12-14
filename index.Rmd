@@ -9,6 +9,8 @@ output:
 
 
 
-## Project thoughts
+## Introduction
 
-I am interested in exploring data related to...
+In this project I will explore the relationship between ethnolinguistic fractionalism and political violence. I have chosen to explore ethnolinguistic fractionalism as an independent variable instead of ethnic separatism (although I suspect there would be an even stronger positive correlation there) as it is a less researched area of study. The dependent variable I will be researching is levels of political violence, lookign in particular at levels of rioting. I hypothesise that there will be a positive correlation between the two. The null hypothesis would be that there is no relationship.
+
+

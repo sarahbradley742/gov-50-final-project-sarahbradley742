@@ -11,57 +11,27 @@ output:
 
 ## Introduction
 
-In this project I will explore the relationship between ethnolinguistic fractionalism and constitutional change. I have chosen to explore ethnolinguistic fractionalism as an independent variable instead of ethnic separatism (although I suspect there would be an even stronger positive correlation there) as it is a less studied area of research. The dependent variable I will be researching is major constitutional change, specifically, the number of basic alterations to a state's constitution. I hypothesize that there will be a positive correlation between the two. The null hypothesis would be that there is no relationship.
+In this project I will explore the relationship between ethnolinguistic fractionalism and constitutional change. I have chosen to explore ethnolinguistic fractionalism as an independent variable as opposed to ethnic separatism (although I suspect there would be an even stronger positive correlation there) as it is a less studied area of research. . I hypothesize that there will be a positive correlation between the two. My hypothesis is predicated on the knowledge that ethnic fractionalism is very often associated with historical and/or ongoing conflicts, and so I conjecture that will be associated with more constitutional change, as constitutional revisions may likely have been necessary at one point or another to attenuate such conflict. This may be to address grievances, accommodate and allow representation for diverse interests, or even to tackle demands for autonomy or secession. The null hypothesis would be that there is no relationship.
 
 ## The Data
+The data I have used for this project is from a dataset on Political Violence, as sourced from the Gov-50 website. https://www.dropbox.com/s/8zms0isy8epvzvd/violence.csv?dl=0
 
-I am using a correlational research data 
+I focused on the variables "elf60" and "constchg60", as well as "riots60", "revols60" and "govtcris60" (riots, revolutions, and government crises) as possible confounding variables.The independent variable I am investigating is a probability measure of ethnolinguistic diversity. The dependent variable I will be researching is major constitutional change, specifically, the number of basic alterations to a state's constitution.It is a binary value. 
 
+As I am investigating a possible relationship between ethnolinguistic fractionalism and constitutional change, my research design can be classified as correlational.It is also cross-sectional, as the data is observational, and variables were naturally occurring and not manipulated by myself. 
+
+First, I loaded the dataset into R:
 ```{r}
 file_path <- "~/Downloads/violence.csv"
-
 data <- read.csv(file_path)
-
-
-#linear regression
-
-model <- lm(constchg60 ~ elf60, data = data)
-
-summary(model)
-
-#tibble
-
-library(tibble)
-library(broom)
-
-model <- lm(constchg60 ~ elf60, data = data)
-
-regression_results <- tidy(model)
-
-print(regression_results)
-
-
-```
-```{r}
-#investigating confoudning variables
-
-
-model <- lm(constchg60 ~ govtcris60 + revols60 + elf60, data = data)
-
-summary(model)
-
-
 ```
 
+A bar chart showing the relationship between ethnolinguistic fractionalism and constitutional change:
 ```{r}
-
-# Load ggplot2 package
 library(ggplot2)
 
-# Remove rows with N/A values for constchg60
 data_no_na_constchg60 <- data[complete.cases(data$constchg60), ]
 
-# Create a bar chart with custom labels
 ggplot(data_no_na_constchg60, aes(x = factor(constchg60), fill = factor(elf60 >= 0.5))) +
   geom_bar(position = "dodge", alpha = 0.7) +
   labs(title = "Ethnolinguistic Fractionalism and Constitutional Change",
@@ -74,14 +44,15 @@ ggplot(data_no_na_constchg60, aes(x = factor(constchg60), fill = factor(elf60 >=
 
 print(geom_bar)
 ```
+
+
+## Results
+The following figure shows a box plot displaying the relationship (positive correlation) between ethnolinguistic diversity and constitutional change:
 ```{r}
-# Load ggplot2 package
 library(ggplot2)
 
-# Remove rows with N/A values for constchg60
 data_no_na_constchg60 <- data[complete.cases(data$constchg60), ]
 
-# Create a box plot
 ggplot(data_no_na_constchg60, aes(x = factor(constchg60), y = elf60)) +
   geom_boxplot(fill = "lightblue", alpha = 0.7) +
   labs(title = "Ethnolinguistic Fractionalism and Constitutional Change",
@@ -94,17 +65,62 @@ print(ggplot)
 
 ```
 
-
-
+Next, I performed a linear regression:
 ```{r}
-## logistical regression
+file_path <- "~/Downloads/violence.csv"
+data <- read.csv(file_path)
 
-logistic_model <- glm(constchg60 ~ elf60, data = data, family = "binomial")
+library(tibble)
+library(broom)
+library(knitr)
 
-summary(logistic_model)
+model <- lm(constchg60 ~ elf60, data = data)
+
+regression_results <- tidy(model)
+
+kable(regression_results, format = "markdown", col.names = c("Term", "Estimate", "Std. Error", "t value", "Pr(>|t|)"))
+
+print(regression_results)
 
 ```
 
-## Results
+I then investigated possible confounding variables:
+```{r}
+
+model <- lm(constchg60 ~ govtcris60 + riots60 + revols60 + elf60, data = data)
+
+coefficients_table <- summary(model)$coefficients[, c("Estimate", "Pr(>|t|)")]
+
+library(knitr)
+
+kable(coefficients_table, format = "markdown", col.names = c("Coefficient", "P-value"))
+
+
+```
+
+It is important to note that while the effects of ethnolinguistic fractionalism remain statistically significant even after testing other confounding variables, such as the presence of government crises, riots or revolutions, it is not to say that thus relationship is causal. 
+
+We do not have enough information on the nature of the constitutional change, and whether it actually concerned ethnic fractionalism through means such as government quota systems etc.A confounding variable not explored in this dataset, is whether countries were colonised, which is a important indicator for constitutional change. 
+
+
+I compiled a list of all countries that experienced constitutional change:
+```{r}
+selected_countries <- data$country[data$constchg60 == 1]
+selected_countries <- na.omit(selected_countries)
+
+if (length(selected_countries) > 0) {
+  cat("Selected Countries:\n")
+  cat(paste("- ", selected_countries, "\n"))
+} else {
+  cat("No selected countries with constchg60 == 1 and non-missing country values.\n")
+}
+
+```
+
+A quick look at this list complied of the countries which experienced constitutional change can tell us that virtually all of these countries have been formerly colonised.
+
+
 
 ## Conclusion
+
+While there is evidence to support my hypothesis and there appears to be a positive correlation between ethnolinguistic fractionalism and constitutional change, I believe that there are many other possible confounding variables which could play a role (e.g. colonial status,) and I would in the future hope to explore these. I would also hope to use a larger sample size of countries, and examine them over a longer time period. 

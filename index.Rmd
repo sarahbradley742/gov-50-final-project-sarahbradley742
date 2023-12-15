@@ -88,6 +88,7 @@ kable(regression_results, format = "markdown", col.names = c("Term", "Estimate",
 print(regression_results)
 
 ```
+The co-efficient estimate for ethnolinguistic fractionalism (elf60) of 0.6069116 tells us that for every one unit change in elf60, we can expect an increase of 0.6069116 units in constitutional change (constchg60). The low p-value (0.0001272) suggests that the results are statistically significant. 
 
 I then investigated possible confounding variables:
 
@@ -104,9 +105,9 @@ kable(coefficients_table, format = "markdown", col.names = c("Coefficient", "P-v
 
 ```
 
-It is important to note that while the effects of ethnolinguistic fractionalism remain statistically significant even after testing other confounding variables, such as the presence of government crises, riots or revolutions, it is not to say that thus relationship is causal. 
+As we still have a coefficient estimate for elf60 of 0.5644192 and the p-value remains very low at 0.0005145, we can determine that there is a positive correlation between ethnolinguistic fractionalism and constitutional change. We have enough evidence to reject teh null hypothesis that there is no relationship.However, it is important to note that while the effects of ethnolinguistic fractionalism remain statistically significant even after testing other confounding variables, such as the presence of government crises, riots, or revolutions, it is not to say that this relationship is causal. 
 
-We do not have enough information on the nature of the constitutional change, and whether it actually concerned ethnic fractionalism through means such as government quota systems etc.A confounding variable not explored in this dataset, is whether countries were colonised, which is a important indicator for constitutional change. 
+We do not have enough information on the nature of the constitutional change, and whether it actually concerned ethnic fractionalism through means such as government quota systems etc. Another confounding variable not explored in this dataset, is whether countries were colonised, which is an important indicator for constitutional change. 
 
 
 I compiled a list of all countries that experienced constitutional change:
@@ -124,10 +125,10 @@ if (length(selected_countries) > 0) {
 
 ```
 
-A quick look at this list complied of the countries which experienced constitutional change can tell us that virtually all of these countries have been formerly colonised.
+A quick look at this list complied of the countries which experienced constitutional change can tell us that near all of these countries (with the exception of Czechoslovakia, former East Germany, and Indonesia) have been formerly colonised.
 
 
 
 ## Conclusion
 
-While there is evidence to support my hypothesis and there appears to be a positive correlation between ethnolinguistic fractionalism and constitutional change, I believe that there are many other possible confounding variables which could play a role (e.g. colonial status,) and I would in the future hope to explore these. I would also hope to use a larger sample size of countries, and examine them over a longer time period. 
+While there is evidence to support my hypothesis that there appears to be a positive correlation between ethnolinguistic fractionalism and constitutional change, I believe that there are many other possible confounding variables which could play a role (e.g. colonial status,) and I would in the future hope to explore these other possible variables. I would also ideally use a larger sample size of countries, and examine them over a longer time period. 

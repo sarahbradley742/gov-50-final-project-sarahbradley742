@@ -105,7 +105,7 @@ kable(coefficients_table, format = "markdown", col.names = c("Coefficient", "P-v
 
 ```
 
-As we still have a coefficient estimate for elf60 of 0.5644192 and the p-value remains very low at 0.0005145, we can determine that there is a positive correlation between ethnolinguistic fractionalism and constitutional change. We have enough evidence to reject teh null hypothesis that there is no relationship.However, it is important to note that while the effects of ethnolinguistic fractionalism remain statistically significant even after testing other confounding variables, such as the presence of government crises, riots, or revolutions, it is not to say that this relationship is causal. 
+As we still have a coefficient estimate for elf60 of 0.5644192 and the p-value remains very low at 0.0005145, we can determine that there is a positive correlation between ethnolinguistic fractionalism and constitutional change. We have enough evidence to reject the null hypothesis that there is no relationship. However, it is important to note that while the effects of ethnolinguistic fractionalism remain statistically significant even after testing other confounding variables, such as the presence of government crises, riots, or revolutions, it is not to say that this relationship is causal. 
 
 We do not have enough information on the nature of the constitutional change, and whether it actually concerned ethnic fractionalism through means such as government quota systems etc. Another confounding variable not explored in this dataset, is whether countries were colonised, which is an important indicator for constitutional change. 
 
